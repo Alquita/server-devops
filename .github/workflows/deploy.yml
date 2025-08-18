@@ -1,0 +1,18 @@
+name: CD - Deploy con Git Pull
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Conectarse al servidor y hacer git pull
+        run: |
+          ssh -o StrictHostKeyChecking=no usuario@137.184.127.11 "
+            cd ~/lemp-sites/valentino_alcaraz/server-devops &&
+            git pull origin main
+          "
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
