@@ -1,18 +1,30 @@
-name: CD - Deploy con Git Pull
+name: CD - Deploy a Carpeta testJs
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Conectarse al servidor y hacer git pull
-        run: |
-          ssh -o StrictHostKeyChecking=no alumno@137.184.127.11 "
-            cd ~/lemp-sites/valentino_alcaraz/server-devops &&
-            git pull origin main
-          "
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
+      - uses: actions/checkout@v4
+
+      - name: Copiar archivos al servidor
+        uses: appleboy/scp-action@v0.1.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "*.js"
+          target: "~/lemp-sites/valentino_alcaraz/server-devops/"
+          rm: true
+          timeout: 30s
+
+      - name: Verificar archivos
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+
