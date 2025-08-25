@@ -3,7 +3,7 @@ name: CD - Pruebas JS
 on:
   push:
     branches:
-      - master
+      - master   # o main, según tu repo
 
 jobs:
   deploy:
@@ -21,4 +21,7 @@ jobs:
 
       - name: Run Deploy Script
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "
+            cd ~/lemp-sites/valentino_alcaraz/server-devops &&
+            git pull origin master
+          "
