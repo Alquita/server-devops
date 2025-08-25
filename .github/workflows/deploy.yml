@@ -1,4 +1,4 @@
-name: CD - Pruebas JS
+name: CD -- Pruebas JS
 
 on:
   push:
