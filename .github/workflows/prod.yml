@@ -23,5 +23,5 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "
             cd ~/lemp-sites/valentino_alcaraz/prod &&
-            git pull origin main
+            git pull origin master
           "
