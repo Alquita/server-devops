@@ -1,4 +1,4 @@
-name: CD - Stagingg
+name: CD - Staging
 
 on:
   push:
